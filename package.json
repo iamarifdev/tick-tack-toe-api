@@ -4,7 +4,6 @@
   "description": "Tick Tack Toe Api",
   "author": "Md. Ariful Islam",
   "private": true,
-  "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",

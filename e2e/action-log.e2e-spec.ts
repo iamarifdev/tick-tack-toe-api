@@ -2,10 +2,10 @@ import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 
-import { ActionLogModule } from './action-log.module';
-import ActionLogService from './action-log.service';
-import ActionLog from './action-log.entity';
-import CreateActionLogDto from './dto/create-action-log.dto';
+import { ActionLogModule } from '../src/action-log/action-log.module';
+import ActionLogService from '../src/action-log/action-log.service';
+import ActionLog from '../src/action-log/action-log.entity';
+import CreateActionLogDto from '../src/action-log/dto/create-action-log.dto';
 
 describe('Cats', () => {
   let app: INestApplication;
