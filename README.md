@@ -51,4 +51,4 @@ $ npm run test:cov
 ## Stay in touch
 
 - Author - [Ariful Islam](https://github.com/arifjmamun)
-- LinkedIn - [@nestframework](https://www.linkedin.com/in/arifjmamun/)
+- LinkedIn - [arifjmamun](https://www.linkedin.com/in/arifjmamun/)
