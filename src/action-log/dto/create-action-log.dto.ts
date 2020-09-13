@@ -13,9 +13,9 @@ export class CreateActionLogDto {
   @IsNotEmpty()
   public moveNo: number;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  public logMessage: string;
+  public row: number;
 
   @IsOptional()
   @IsBoolean()

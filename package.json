@@ -1,8 +1,8 @@
 {
   "name": "tick-tack-toe-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Tick Tack Toe Api",
+  "author": "Md. Ariful Islam",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import CreateActionLogDto from './dto/create-action-log.dto';
 
 @Entity()
 class ActionLog {
@@ -25,6 +26,18 @@ class ActionLog {
 
   @Column({ type: 'int8', nullable: false })
   public timestamp: number;
+
+  static create(dto: CreateActionLogDto): ActionLog {
+    const actionLog = new ActionLog();
+    actionLog.player = dto.player;
+    actionLog.logMessage = '';
+    actionLog.moveNo = dto.moveNo;
+    actionLog.sessionId = dto.sessionId;
+    actionLog.isGameDraw = dto.isGameDraw;
+    actionLog.isGameOver = dto.isGameOver;
+    actionLog.timestamp = Date.now();
+    return actionLog;
+  }
 }
 
 export default ActionLog;

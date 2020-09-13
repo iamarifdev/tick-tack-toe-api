@@ -13,8 +13,12 @@ export default class ActionLogService {
     private actionLogRepository: Repository<ActionLog>,
   ) {}
 
-  async getAllActionLogs(): Promise<ActionLog[]> {
-    return await this.actionLogRepository.find();
+  async getAllActionLogs(sessionId: string): Promise<ActionLog[]> {
+    return await this.actionLogRepository
+      .createQueryBuilder('actionLog')
+      .where('actionLog.sessionId = :sessionId', { sessionId: sessionId })
+      .orderBy('actionLog.timestamp', 'DESC')
+      .getMany();
   }
 
   async getActionLogById(id: number): Promise<ActionLog> {
@@ -25,10 +29,21 @@ export default class ActionLogService {
     throw new ActionLogNotFoundException(id);
   }
 
-  async createActionLog(actionLog: CreateActionLogDto): Promise<ActionLog> {
+  async createActionLog({row, ...actionLog}: CreateActionLogDto): Promise<ActionLog> {
+    let message = '';
+    if (!actionLog.isGameOver && !actionLog.isGameDraw) {
+      message = `Player ${actionLog.player.toUpperCase()} moved to row ${row + 1} at position ${actionLog.moveNo}`;
+    } else if (actionLog.isGameOver && !actionLog.isGameDraw) {
+      message = `Yay! Player ${actionLog.player.toUpperCase()} is the winner!`;
+    }
+    if (actionLog.isGameDraw) {
+      message = `We have a draw!`;
+    }
+
     const newActionLog = await this.actionLogRepository.create({
       ...actionLog,
-      timestamp: Date.now()
+      logMessage: message,
+      timestamp: Date.now(),
     });
     await this.actionLogRepository.save(newActionLog);
     return newActionLog;

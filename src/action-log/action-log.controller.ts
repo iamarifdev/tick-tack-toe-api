@@ -6,6 +6,7 @@ import {
   Post,
   UseInterceptors,
   ClassSerializerInterceptor,
+  NotFoundException,
 } from '@nestjs/common';
 import ActionLogService from './action-log.service';
 import FindOneParams from '../utils/find-one-params';
@@ -16,9 +17,13 @@ import CreateActionLogDto from './dto/create-action-log.dto';
 export default class ActionLogController {
   constructor(private readonly actionLogService: ActionLogService) {}
 
-  @Get()
-  async getAllPosts() {
-    return await this.actionLogService.getAllActionLogs();
+  @Get('session/:id')
+  async getAllPosts(@Param() { id }: FindOneParams) {
+    try {
+      return await this.actionLogService.getAllActionLogs(id);
+    } catch (error) {
+      return new NotFoundException(error);
+    }
   }
 
   @Get(':id')
